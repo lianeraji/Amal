@@ -1,49 +1,82 @@
-Next Steps (from Static Demo → Prototype)
+# AMAL — Next Steps (from Static Demo → Prototype)
 
-What we have now:
-A working UI demo of AMAL (3D character + chat flow)
-“Hidden Output” panel concept (state estimate, next best action, why, safety flags)
-A quantum decision formulation (QUBO → QAOA/anneal/quantum-inspired solver) described in the deck
+This file explains what we will build next to move AMAL from a UI demo to a measurable prototype.
 
-What we will complete next:
-Connect UI → backend decision endpoint
-Implement a /decide API (Python) that returns:
-current_state_estimate (bars)
-next_best_action
-why_this_action_now (explainability)
-safety_flags
-The UI calls this endpoint after each message / interaction.
-Implement “Quantum Engineering Simulator” backend
+---
 
-Build QUBO with:
-Exactly-one action constraint per step
-Safety penalties (ex: avoid reframing early when alert is high)
-Objective = minimize spike risk + reduce volatility + improve stabilization
+## 1) Immediate engineering tasks (high impact)
 
-Solve using one of:
-Quantum-inspired QUBO solver (fast baseline)
-Optional QAOA simulation (toy, small size) for demo credibility
-Provide a toggle: Classical baseline vs Quantum-sim
-Add a small offline evaluation set
-Create 10–20 scripted child scenarios (safe, non-graphic)
-For each scenario, label the expected safe next action
+### A) Wire UI → Backend (/decide)
+**Goal:** Every interaction can produce a real “decision card”.
+- Input: feature/state vector `f(t)` (or the current state bars)
+- Output:
+  - `current_state_estimate` (bars)
+  - `next_best_action`
+  - `why_this_action_now` (3 bullets)
+  - `safety_flags`
 
-Report metrics:
-% safe action selection
-spike-risk reduction (proxy)
-stabilization steps (proxy)
-rule violation rate (must be 0)
-Guardrails + Safety policy
-Keep AMAL as “supportive companion” 
+### B) Implement the Quantum Decision Engine (continuous use)
+Replace the backend placeholder policy with a real optimization loop:
 
-Add escalation logic:
-caregiver check recommended when high worry/alert persists
-referral prompt when safety flags trigger
-Ensure age-appropriate phrasing and content.
-Make the demo crystal clear
+- Decision variables: `x[t,k] ∈ {0,1}` (choose action k at step t)
+- Constraint: exactly one action per step  
+  `λ * Σ_t (1 - Σ_k x[t,k])^2`
+- Safety penalties (examples):
+  - avoid reframing too early when alert/anxiety is high
+  - enforce escalation when flags persist
+- Objective (examples): minimize spike risk + volatility; maximize stabilization
+- Solve `argmin J(x)` each interaction using:
+  - QUBO/Ising formulation
+  - QAOA / annealing / quantum‑inspired solver (as allowed by rubric)
 
-Live demo flow:
-Quick “check-in”
-1–2 chat turns with AMAL
-Show hidden panel updating (bars + action + why + flags)
-Toggle Classical vs Quantum-sim to show different decision behavior
+---
+
+## 2) Datasets (practical, safe, Gaza‑first)
+
+### A) “Small but real” data to start
+AMAL does not require massive child datasets to begin.
+We can start with **small, safe intent + stress‑cue** datasets and expand responsibly.
+
+**1) Text cues (NLP)**
+- Intent labels: worried / scared / angry / tired / calm / help‑needed
+- Signals: avoidance, uncertainty, reassurance response
+- Approach: public emotion datasets as baseline + careful Arabic adaptation + human review
+
+**2) Voice cues (optional)**
+- Use existing Arabic ASR models (no training from scratch)
+- Extract simple prosody features (speed/pauses) rather than identity
+
+**3) Sign / gesture intent (optional)**
+- Not full sign translation at hackathon time
+- Target small K intents (yes/no/stop/help/scared)
+- Collect small consented samples + augmentation
+
+### B) Offline evaluation set 
+
+Create 10–20 scripted, non‑graphic scenarios + expected safe next action:
+- measure unsafe action rate (should be 0)
+- measure stabilization speed (proxy)
+- measure spike‑risk reduction (proxy)
+
+---
+
+## 3) Complexity & why QUBO/QAOA (vs AI‑only)
+
+- Planning over horizon H with K actions grows as **O(K^H)** (e.g., K=8, H=4 → 4096 plans per turn).
+- Adding safety constraints and pacing makes it a **constrained combinatorial optimization** problem (NP‑hard in general).
+- AI helps estimate state `f(t)` from text/voice/sign, but the bottleneck is:
+  **choosing the next safest multi‑step plan under constraints**.
+
+QUBO lets us encode:
+- “exactly one action”
+- “no early reframing if alert high”
+- “escalate when flags persist”
+…inside a single objective, then solve with QAOA/anneal/quantum‑inspired repeatedly.
+
+
+---
+
+## 4) After hackathon (roadmap)
+- Clinic/caregiver mode: export session summary (state trends + flags + recommendations)
+- Personalization: adapt action selection to what helps a child most over time
+- Arabic dialect improvement with safe, consented data collection
