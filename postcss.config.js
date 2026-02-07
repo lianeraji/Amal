@@ -1,3 +1,4 @@
+//Liane Raji
 export default {
   plugins: {
     tailwindcss: {},

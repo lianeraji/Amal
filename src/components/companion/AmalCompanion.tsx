@@ -1,3 +1,4 @@
+//Liane Raji
 import React, { useEffect, useState, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChatBubble } from './ChatBubble';
