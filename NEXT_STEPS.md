@@ -7,7 +7,7 @@ A quantum decision formulation (QUBO → QAOA/anneal/quantum-inspired solver) de
 
 What we will complete next:
 Connect UI → backend decision endpoint
-Implement a /decide API (Python recommended) that returns:
+Implement a /decide API (Python) that returns:
 current_state_estimate (bars)
 next_best_action
 why_this_action_now (explainability)
