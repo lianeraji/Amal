@@ -52,24 +52,5 @@ Check: http://localhost:8000/health
 
 ---
 
-## Demo script (60–90 seconds)
-1) Open AMAL UI and do a quick check‑in.
-2) Send 1–2 messages to AMAL (kid‑friendly).
-3) Open the **hidden panel** and point to:
-   - state bars updating
-   - selected next action
-   - “why now”
-   - safety flags
-4) (Optional) Show **Classical vs Quantum‑sim** mode in backend response for A/B credibility.
-
----
-
-## Safety & ethics (short)
-- Child‑friendly language, no graphic content.
-- Escalation logic: caregiver check / referral suggestion when risk flags trigger.
-- Minimal data approach: start with small intent + stress‑cue features, expand responsibly.
-
----
-
 ## License / credits
 Team: AMAL Hackathon Team (NYUAD International Hackathon for Social Good).
