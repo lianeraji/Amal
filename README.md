@@ -48,7 +48,6 @@ uvicorn server:app --reload --port 8000
 ```
 Check: http://localhost:8000/health
 
-> If your UI is already wired to a backend: update the API base URL to `http://localhost:8000`.
 
 ---
 
