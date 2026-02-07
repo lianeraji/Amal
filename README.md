@@ -38,7 +38,7 @@ npm run dev
 ```
 Open: http://localhost:5173
 
-### 2) Backend (recommended for judging)
+### 2) Backend (placeholder)
 ```bash
 cd backend
 python3 -m venv .venv
