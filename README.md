@@ -1,4 +1,4 @@
-# AMAL — Kid-Friendly Companion for Post‑War Mental Support (Quantum + AI)
+# AMAL - Kid-Friendly Companion for Post‑War Mental Support (Quantum + AI)
 
 AMAL is a kid‑friendly 3D companion designed for **low‑resource, high‑stress settings (Gaza first)**.
 Children can interact via **text, voice, or sign**, while caregivers/judges can view a **hidden panel**
